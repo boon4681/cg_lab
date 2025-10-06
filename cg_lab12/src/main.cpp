@@ -130,7 +130,9 @@ int main()
     // }
     CreateShaders();
 
-    GLuint uniformModel = 0, uniformProjection = 0, uniformView = 0, uniformLightColor = 0;
+    GLuint uniformModel = 0, uniformProjection = 0, uniformView = 0, uniformLightColor = 0, uniformLightPos = 0;
+
+    glm::vec3 lightPos = glm::vec3(5.0f, 5.0f, 0.0f);
     unsigned int texture1;
     glGenTextures(1, &texture1);
     glBindTexture(GL_TEXTURE_2D, texture1);
@@ -193,6 +195,7 @@ int main()
         uniformProjection = shaderList[0].GetUniformLocation("projection");
         uniformView = shaderList[0].GetUniformLocation("view");
         uniformLightColor = shaderList[0].GetUniformLocation("lightColour");
+        uniformLightPos = shaderList[0].GetUniformLocation("lightPos");
 
         glm::mat4 view(1.0f);
         // glm::vec3 cameraPos = glm::vec3(1.0f, 0.5f, 2.0f);
@@ -227,6 +230,7 @@ int main()
             glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
             glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
             glUniform3fv(uniformLightColor, 1, glm::value_ptr(lightColour));
+            glUniform3fv(uniformLightPos, 1, glm::value_ptr(lightPos));
             meshList[i]->RenderMesh();
         }
 
